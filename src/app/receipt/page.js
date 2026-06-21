@@ -3,10 +3,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import supabase from '../../lib/supabase';
-import { Plus, Trash2, Share2, Receipt, LogOut } from 'lucide-react';
+import { Plus, Trash2, Download, Receipt, LogOut, MessageSquare } from 'lucide-react';
 import { toPng } from 'html-to-image';
 
-const LOGO_SRC = "data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAFQAR4DASIAAhEBAxEB/8QAHQABAAEEAwEAAAAAAAAAAAAAAAgBBQQHAgQJA//EAE8QAAEDAwIDBQQHBAcFAw0AAAEAAgMEBREGIQcSMQgTQVFhInGBkRQyQlKhscEVI2JyM0OSwtHh8BYkU6LSVoKyCRcYJjQ1N2RzlbPT8f/EABsBAQACAwEBAAAAAAAAAAAAAAAEBQEDBgIH/8QANREAAgIBAwMCBAUDAgcAAAAAAAECAwQFESESMUETIgYyUWEUI3GBoUKRsdHwFRYkNGLB4f/aAAwDAQACEs06LSVoKyCRcYJjQ1N2RzlbPT8f/EABsBAQACAwEBAAAAAAAAAAAAAAAEBQEDBgIH/8QANREAAgIBAwMCBAUDAgcAAAAAAAECAwQFESESMUETIgYyUWEUI3GBoUKRsdHwFRYkNGLB4f/aAAwメイドイン";
+const LOGO_SRC = "data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAFQAR4DASIAAhEBAxEB/8QAHQABAAEEAwEAAAAAAAAAAAAAAAgBBQQHAgQJA//EAE8QAAEDAwIDBQQHBAcFAw0AAAEAAgMEBREGIQcSMQgTQVFhInGBkRQyQlKhscEVI2JyM0OSwtHh8BYkU6LSVoKyCRcYJjQ1N2RzlbPT8f/EABsBAQACAwEBAAAAAAAAAAAAAAAEBQEDBgIH/8QANREAAgIBAwMCBAUDAgcAAAAAAAECAwQFESESMUETIgYyUWEUI3GBoUKRsdHwFRYkNGLB4f/aAAwSHIFTQ1N2RzlbPT8f/EABsBAQACAwEBAAAAAAAAAAAAAAAEBQEDBgIH/8QANREAAgIBAwMCBAUDAgcAAAAAAAECAwQFESESMUETIgYyUWEUI3GBoUKRsdHwFRYkNGLB4f/aAAメイドイン";
 
 function LogoBadge() {
   return (
@@ -80,6 +80,25 @@ export default function ReceiptGenerator() {
     }
   };
 
+  const shareToWhatsApp = () => {
+    const clientName = customerName.trim() || 'Valued Customer';
+    const totalAmount = calculateTotal().toLocaleString();
+    const businessName = businessData?.business_name || 'Our Shop';
+    
+    // Construct text summary of items
+    const itemsSummary = items
+      .filter(item => item.name.trim() !== '')
+      .map(item => `• ${item.name} (Qty: ${item.qty})`)
+      .join('\n');
+
+    const itemSection = itemsSummary ? `\n\nItems:\n${itemsSummary}` : '';
+
+    const message = `Hello ${clientName},\n\nThank you for your patronage! Here is the summary of your receipt from *${businessName}*.\n\n*Total Due: ₦${totalAmount}*${itemSection}\n\nHave a wonderful day!`;
+    
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://api.whatsapp.com/send?text=${encodedMessage}`, '_blank');
+  };
+
   if (loading || !businessData) {
     return (
       <div className="min-h-screen bg-[#F0F2F5] flex items-center justify-center">
@@ -136,7 +155,6 @@ export default function ReceiptGenerator() {
           <div className="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm space-y-3">
             <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest">Items Purchased</label>
 
-            {/* Column headers - Hidden on small mobile devices to maximize room */}
             <div className="hidden sm:grid sm:grid-cols-[1fr_60px_100px_32px] gap-2 px-1">
               <span className="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">Description</span>
               <span className="text-[9px] font-semibold text-slate-400 uppercase tracking-wider text-center">Qty</span>
@@ -150,7 +168,6 @@ export default function ReceiptGenerator() {
                   className="flex flex-col sm:grid sm:grid-cols-[1fr_60px_100px_32px] gap-2 bg-slate-50/50 sm:bg-transparent p-3 sm:p-0 rounded-xl border border-slate-100 sm:border-none relative"
                   style={{ animation: idx === newRowIdx ? 'rowIn 0.3s cubic-bezier(0.16,1,0.3,1) both' : undefined }}>
                   
-                  {/* Description field */}
                   <div className="w-full">
                     <span className="block sm:hidden text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Description</span>
                     <input type="text" placeholder="Item description" value={item.name}
@@ -158,7 +175,6 @@ export default function ReceiptGenerator() {
                       className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 focus:bg-white transition-all duration-200" />
                   </div>
 
-                  {/* Qty and Price layout side-by-side on mobile */}
                   <div className="grid grid-cols-2 gap-2 sm:contents">
                     <div>
                       <span className="block sm:hidden text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Qty</span>
@@ -178,7 +194,6 @@ export default function ReceiptGenerator() {
                     </div>
                   </div>
 
-                  {/* Remove button */}
                   {items.length > 1 ? (
                     <button onClick={() => removeItem(idx)}
                       className="absolute top-2 right-2 sm:static flex items-center justify-center w-7 h-7 rounded-lg text-slate-300 hover:text-red-500 hover:bg-red-50 active:scale-90 transition-all duration-150 self-end sm:self-auto">
@@ -203,12 +218,22 @@ export default function ReceiptGenerator() {
             </span>
           </div>
 
-          {/* Download */}
-          <button onClick={downloadReceipt}
-            className="group w-full flex items-center justify-center gap-2.5 bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white font-bold py-4 rounded-2xl transition-all duration-200 text-sm shadow-lg shadow-blue-600/20">
-            <Share2 size={17} className="transition-transform duration-200 group-hover:-translate-y-0.5" />
-            Generate &amp; Save Receipt
-          </button>
+          {/* Action Buttons Layout */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {/* Download Button */}
+            <button onClick={downloadReceipt}
+              className="group flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 active:scale-[0.98] text-white font-bold py-3.5 rounded-2xl transition-all duration-200 text-xs shadow-md">
+              <Download size={15} className="transition-transform duration-200 group-hover:-translate-y-0.5" />
+              Download Receipt Image
+            </button>
+
+            {/* WhatsApp Share Button */}
+            <button onClick={shareToWhatsApp}
+              className="group flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white font-bold py-3.5 rounded-2xl transition-all duration-200 text-xs shadow-md shadow-emerald-600/10">
+              <MessageSquare size={15} className="transition-transform duration-200 group-hover:scale-110" />
+              Send via WhatsApp
+            </button>
+          </div>
         </div>
 
         {/* ── RIGHT: RECEIPT PREVIEW ── */}
