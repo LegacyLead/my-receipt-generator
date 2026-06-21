@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import supabase from '@/lib/supabase';
+import supabase from '../lib/supabase';
 import { Store, Phone, MapPin, ArrowRight } from 'lucide-react';
 
 export default function ProfileSetup() {

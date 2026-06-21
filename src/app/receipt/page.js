@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import supabase from '@/lib/supabase';
+import supabase from '../../lib/supabase';
 import { Plus, Trash2, Share2, Receipt, LogOut } from 'lucide-react';
 import { toPng } from 'html-to-image';
 

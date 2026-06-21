@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import supabase from '@/lib/supabase';
+import supabase from '../lib/supabase';
 import { Lock, Mail, Store, ArrowRight } from 'lucide-react';
 
 export default function AuthPage() {
