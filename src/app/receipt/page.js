@@ -15,7 +15,7 @@ function LogoBadge() {
         <img src={LOGO_SRC} alt="ReceiptGen logo" className="w-6 h-6 rounded-md object-contain" />
         <div className="flex flex-col leading-none">
           <span className="text-[8px] font-semibold tracking-[0.18em] uppercase text-slate-400">Powered by</span>
-          <span className="text-[11px] font-black tracking-tight text-slate-700">ReceiptGen</span>
+          <span className="text-[11px] font-black tracking-tight text-slate-700">HaQQ Computers</span>
         </div>
         <div className="w-px h-5 bg-slate-200 mx-0.5" />
         <span className="text-[8px] font-medium text-slate-400 tracking-wide">Professional Edition</span>
