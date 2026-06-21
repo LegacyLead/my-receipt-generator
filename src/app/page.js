@@ -1,16 +1,49 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { Store, Phone, MapPin, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 export default function ProfileSetup() {
+  const router = useRouter();
   const [businessName, setBusinessName] = useState('');
   const [phoneNumber, setPhoneNumber]   = useState('');
   const [shopAddress, setShopAddress]   = useState('');
-  const [loading, setLoading]           = useState(false);
+  const [loading, setLoading]           = useState(true);
   const [message, setMessage]           = useState('');
   const [success, setSuccess]           = useState(false);
+  const [profile, setProfile] = useState(null);
+useEffect(() => {
+    async function checkExistingProfile() {
+      try {
+        const devUserId = '00000000-0000-0000-0000-000000000000';
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', devUserId)
+          .single();
+
+        if (data) {
+          setProfile(data);
+          router.push('/receipt'); 
+        }
+      } catch (err) {
+        console.log('No profile found yet:', err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    checkExistingProfile();
+  }, [router]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#F0F2F5] flex items-center justify-center">
+        <p className="text-slate-600 font-medium animate-pulse">Loading HaQQ Computers...</p>
+      </div>
+    );
+  }
 
   const handleSaveProfile = async (e) => {
     e.preventDefault();
