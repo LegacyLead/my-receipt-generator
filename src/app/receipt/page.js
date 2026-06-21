@@ -3,10 +3,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import supabase from '../../lib/supabase';
-import { Plus, Trash2, Download, Receipt, LogOut, MessageSquare } from 'lucide-react';
+import { Plus, Trash2, Download, Receipt, LogOut, Share2 } from 'lucide-react';
 import { toPng } from 'html-to-image';
 
-const LOGO_SRC = "data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAFQAR4DASIAAhEBAxEB/8QAHQABAAEEAwEAAAAAAAAAAAAAAAgBBQQHAgQJA//EAE8QAAEDAwIDBQQHBAcFAw0AAAEAAgMEBREGIQcSMQgTQVFhInGBkRQyQlKhscEVI2JyM0OSwtHh8BYkU6LSVoKyCRcYJjQ1N2RzlbPT8f/EABsBAQACAwEBAAAAAAAAAAAAAAAEBQEDBgIH/8QANREAAgIBAwMCBAUDAgcAAAAAAAECAwQFESESMUETIgYyUWEUI3GBoUKRsdHwFRYkNGLB4f/aAAwSHIFTQ1N2RzlbPT8f/EABsBAQACAwEBAAAAAAAAAAAAAAAEBQEDBgIH/8QANREAAgIBAwMCBAUDAgcAAAAAAAECAwQFESESMUETIgYyUWEUI3GBoUKRsdHwFRYkNGLB4f/aAAメイドイン";
+const LOGO_SRC = "data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAFQAR4DASIAAhEBAxEB/8QAHQABAAEEAwEAAAAAAAAAAAAAAAgBBQQHAgQJA//EAE8QAAEDAwIDBQQHBAcFAw0AAAEAAgMEBREGIQcSMQgTQVFhInGBkRQyQlKhscEVI2JyM0OSwtHh8BYkU6LSVoKyCRcYJjQ1N2RzlbPT8f/EABsBAQACAwEBAAAAAAAAAAAAAAAEBQEDBgIH/8QANREAAgIBAwMCBAUDAgcAAAAAAAECAwQFESESMUETIgYyUWEUI3GBoUKRsdHwFRYkNGLB4f/aAAwSHIFTQ1N2RzlbPT8f/EABsBAQACAwEBAAAAAAAAAAAAAAAEBQEDBgIH/8QANREAAgIBAwMCBAUDAgcAAAAAAAECAwQFESESMUETIgYyUWEUI3GBoUKRsdHwFRYkNGLB4f/aメイドイン";
 
 function LogoBadge() {
   return (
@@ -80,23 +80,42 @@ export default function ReceiptGenerator() {
     }
   };
 
-  const shareToWhatsApp = () => {
-    const clientName = customerName.trim() || 'Valued Customer';
-    const totalAmount = calculateTotal().toLocaleString();
-    const businessName = businessData?.business_name || 'Our Shop';
-    
-    // Construct text summary of items
-    const itemsSummary = items
-      .filter(item => item.name.trim() !== '')
-      .map(item => `• ${item.name} (Qty: ${item.qty})`)
-      .join('\n');
+  const shareReceiptFile = async () => {
+    if (!receiptRef.current) return;
+    try {
+      const clientName = customerName.trim() || 'Valued Customer';
+      const businessName = businessData?.business_name || 'Our Shop';
+      const fileName = `Receipt-${clientName}.png`;
 
-    const itemSection = itemsSummary ? `\n\nItems:\n${itemsSummary}` : '';
+      // Generate the base64 data URL from the HTML elements
+      const dataUrl = await toPng(receiptRef.current, { cacheBust: true });
+      
+      // Convert data URL to an actual file blob
+      const res = await fetch(dataUrl);
+      const blob = await res.blob();
+      const file = new File([blob], fileName, { type: 'image/png' });
 
-    const message = `Hello ${clientName},\n\nThank you for your patronage! Here is the summary of your receipt from *${businessName}*.\n\n*Total Due: ₦${totalAmount}*${itemSection}\n\nHave a wonderful day!`;
-    
-    const encodedMessage = encodeURIComponent(message);
-    window.open(`https://api.whatsapp.com/send?text=${encodedMessage}`, '_blank');
+      // Create a short crisp text caption
+      const captionText = `Hello ${clientName}, here is your receipt from ${businessName}. Thank you for your patronage!`;
+
+      // Check if browser supports sharing files natively
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: 'Receipt',
+          text: captionText,
+        });
+      } else {
+        // Fallback if the browser or platform restricts native file sharing
+        const link = document.createElement('a');
+        link.download = fileName;
+        link.href = dataUrl;
+        link.click();
+        alert('Direct sharing isn\'t supported by this browser. The receipt image has been downloaded to your device so you can attach it directly.');
+      }
+    } catch (error) {
+      console.error('Error sharing receipt:', error);
+    }
   };
 
   if (loading || !businessData) {
@@ -227,11 +246,11 @@ export default function ReceiptGenerator() {
               Download Receipt Image
             </button>
 
-            {/* WhatsApp Share Button */}
-            <button onClick={shareToWhatsApp}
+            {/* Smart Share Button (Launches WhatsApp/WhatsApp Business share panel with image and text) */}
+            <button onClick={shareReceiptFile}
               className="group flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white font-bold py-3.5 rounded-2xl transition-all duration-200 text-xs shadow-md shadow-emerald-600/10">
-              <MessageSquare size={15} className="transition-transform duration-200 group-hover:scale-110" />
-              Send via WhatsApp
+              <Share2 size={15} className="transition-transform duration-200 group-hover:scale-110" />
+              Share Receipt Image
             </button>
           </div>
         </div>
