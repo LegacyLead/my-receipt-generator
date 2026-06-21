@@ -42,7 +42,7 @@ export default function ProfileSetup() {
     checkUserSession();
   }, [router]);
 
-  const handleSaveProfile = async (e) => {
+ const handleSaveProfile = async (e) => {
     e.preventDefault();
     setLoading(true);
     setMessage('');
@@ -64,6 +64,7 @@ export default function ProfileSetup() {
         .from('profiles')
         .insert([
           {
+            id: user.id, // <--- ADD THIS LINE HERE to fix the database constraint!
             business_name: businessName,
             phone_number: phoneNumber,
             shop_address: shopAddress,
