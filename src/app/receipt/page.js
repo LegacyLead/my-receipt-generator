@@ -5,7 +5,7 @@ import { supabase } from '@/lib/supabase';
 import { Plus, Trash2, Share2, Receipt, User } from 'lucide-react';
 import { toPng } from 'html-to-image';
 
-/* ─── tiny helpers ─────────────────────────────────────── */
+/* tiny helpers */
 const fmt = (n) => Number(n || 0).toLocaleString('en-NG');
 
 export default function ReceiptGenerator() {
